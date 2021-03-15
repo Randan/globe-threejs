@@ -208,7 +208,7 @@ function initGlobe(selector) {
     const globe = new Globe(selector);
     globe.init();
   } catch (_) {
-    throw new Error('Use valid selector!');
+    throw new Error('Use valid container selector!');
   }
 }
 
