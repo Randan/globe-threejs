@@ -8,6 +8,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
+    "ignorePatterns": ["/node_modules/**/*.js", "/build/**/*.js"],
     "rules": {
     }
 }
