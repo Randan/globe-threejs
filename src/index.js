@@ -13,11 +13,14 @@ import {
   TextureLoader,
   WebGLRenderer,
 } from 'three';
+import Hammer from 'hammerjs';
 
 class Globe {
   constructor(container) {
     this.container = document.querySelector(container);
     this.canvas = null;
+
+    this.hammertime = null;
 
     this.width = null;
     this.height = null;
@@ -97,6 +100,9 @@ class Globe {
     this.render();
 
     this.canvas = document.querySelector('canvas');
+
+    this.hammertime = new Hammer(this.canvas);
+
     this.addMouseHandler(this.canvas);
     this.resizeListener();
   }
@@ -174,12 +180,20 @@ class Globe {
     canvas.addEventListener('mousemove', this.onMouseMove, false);
     canvas.addEventListener('mousedown', this.onMouseDown, false);
     canvas.addEventListener('mouseup', this.onMouseUp, false);
+
+
+    this.hammertime.on("pan", evt => {
+      evt.preventDefault();
+
+      this.rotateScene(evt.deltaX / 15, this.rotation);
+    });
   }
 
   removeMouseHandler(canvas) {
     canvas.removeEventListener('mousemove', this.onMouseMove, false);
     canvas.removeEventListener('mousedown', this.onMouseDown, false);
     canvas.removeEventListener('mouseup', this.onMouseUp, false);
+    this.hammertime = null;
   }
 
   resizeListenerCB() {
